@@ -75,11 +75,14 @@ You will need to install:
     
     
 ## Workflow ##
+
 ### Conceptual Diagram ###
 
+![Image](https://github.com/ZawWin/kaggle-n-redshift/blob/main/images/Conceptual%20dataflow%20diagram.png)
 
 ### Actual Data Flow Diagram ###
 
+![Image](https://github.com/ZawWin/kaggle-n-redshift/blob/main/images/Dataflow%20Diagram.png)
 
 ## Use Cases ##
 
