@@ -1,0 +1,93 @@
+[2021-01-19 21:24:54,525] {taskinstance.py:826} INFO - Dependencies all met for <TaskInstance: low_income_hospitals.Create_Tables_in_Redshift 2021-01-20T02:24:51.101512+00:00 [queued]>
+[2021-01-19 21:24:54,529] {taskinstance.py:826} INFO - Dependencies all met for <TaskInstance: low_income_hospitals.Create_Tables_in_Redshift 2021-01-20T02:24:51.101512+00:00 [queued]>
+[2021-01-19 21:24:54,529] {taskinstance.py:1017} INFO - 
+--------------------------------------------------------------------------------
+[2021-01-19 21:24:54,529] {taskinstance.py:1018} INFO - Starting attempt 1 of 1
+[2021-01-19 21:24:54,529] {taskinstance.py:1019} INFO - 
+--------------------------------------------------------------------------------
+[2021-01-19 21:24:54,534] {taskinstance.py:1038} INFO - Executing <Task(PostgresOperator): Create_Tables_in_Redshift> on 2021-01-20T02:24:51.101512+00:00
+[2021-01-19 21:24:54,536] {standard_task_runner.py:51} INFO - Started process 92627 to run task
+[2021-01-19 21:24:54,543] {standard_task_runner.py:75} INFO - Running: ['airflow', 'tasks', 'run', 'low_income_hospitals', 'Create_Tables_in_Redshift', '2021-01-20T02:24:51.101512+00:00', '--job-id', '5', '--pool', 'default_pool', '--raw', '--subdir', 'DAGS_FOLDER/low_income_hospitals.py', '--cfg-path', '/var/folders/yg/z5092h4j73z95n7zhxq2kwx1szwm14/T/tmp_zrz2aaw']
+[2021-01-19 21:24:54,544] {standard_task_runner.py:76} INFO - Job 5: Subtask Create_Tables_in_Redshift
+[2021-01-19 21:24:54,567] {logging_mixin.py:103} INFO - Running <TaskInstance: low_income_hospitals.Create_Tables_in_Redshift 2021-01-20T02:24:51.101512+00:00 [running]> on host shs-l5332.ssp.pri
+[2021-01-19 21:24:54,585] {taskinstance.py:1232} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_EMAIL=zawnaingwynn@gmail.com
+AIRFLOW_CTX_DAG_OWNER=Harry
+AIRFLOW_CTX_DAG_ID=low_income_hospitals
+AIRFLOW_CTX_TASK_ID=Create_Tables_in_Redshift
+AIRFLOW_CTX_EXECUTION_DATE=2021-01-20T02:24:51.101512+00:00
+AIRFLOW_CTX_DAG_RUN_ID=manual__2021-01-20T02:24:51.101512+00:00
+[2021-01-19 21:24:54,586] {postgres.py:69} INFO - Executing: CREATE TABLE IF NOT EXISTS public.hospital_locations(
+provider_id varchar(32) PRIMARY KEY,
+hospital_name text NOT NULL,
+address text NOT NULL,
+city varchar(64) NOT NULL,
+state varchar(32) NOT NULL,
+zip_code varchar(32) NOT NULL,
+county_name varchar(32),
+phone_number numeric,
+hospital_type varchar(128),
+hospital_ownership varchar(256),
+emergency_services boolean,
+meets_criteria_for_meaningful_use_of_EHRs boolean
+);
+
+
+CREATE TABLE IF NOT EXISTS public.hospital_ratings(
+provider_id varchar(32) PRIMARY KEY,
+hospital_overall_rating varchar(32),
+hospital_overall_rating_footnote text,
+mortality_national_comparison text,
+mortality_national_comparison_footnote text,
+safety_of_care_national_comparison text,
+safety_of_care_national_comparison_footnote text,
+readmission_national_comparison text,
+readmission_national_comparison_footnote text,
+patient_experience_national_comparison text,
+patient_experience_national_comparison_footnote text,
+effectiveness_of_care_national_comparison text,
+effectiveness_of_care_national_comparison_footnote text,
+timeliness_of_care_national_comparison text,
+timeliness_of_care_national_comparison_footnote text,
+efficient_use_of_medical_imaging_national_comparison text,
+efficient_use_of_medical_imaging_national_comparison_footnote text
+);
+
+
+CREATE TABLE IF NOT EXISTS public.low_income_area(
+zip_code varchar(32) PRIMARY KEY,
+city varchar(32) Not Null,
+state varchar(32) NOT NULL,
+county varchar(32) NOT NULL,
+zip_code_designation varchar(32) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS public.income_per_zip(
+zip_code varchar(32) PRIMARY KEY,
+total_population numeric NOT NULL,
+total_income numeric NOT NULL,
+avg_income numeric NOT NULL
+);
+[2021-01-19 21:24:54,590] {base.py:74} INFO - Using connection to: id: redshift. Host: zipcoderedshift.cvh0gkrokjip.us-west-2.redshift.amazonaws.com, Port: 5439, Schema: zipcode, Login: harry, Password: XXXXXXXX, extra: None
+[2021-01-19 21:24:55,657] {taskinstance.py:1396} ERROR - FATAL:  password authentication failed for user "harry"
+FATAL:  password authentication failed for user "harry"
+Traceback (most recent call last):
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1086, in _run_raw_task
+    self._prepare_and_execute_task_with_callbacks(context, task)
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1260, in _prepare_and_execute_task_with_callbacks
+    result = self._execute_task(context, task_copy)
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1300, in _execute_task
+    result = task_copy.execute(context=context)
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/providers/postgres/operators/postgres.py", line 71, in execute
+    self.hook.run(self.sql, self.autocommit, parameters=self.parameters)
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/hooks/dbapi.py", line 173, in run
+    with closing(self.get_conn()) as conn:
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/providers/postgres/hooks/postgres.py", line 108, in get_conn
+    self.conn = psycopg2.connect(**conn_args)
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/psycopg2/__init__.py", line 127, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: FATAL:  password authentication failed for user "harry"
+FATAL:  password authentication failed for user "harry"
+
+[2021-01-19 21:24:55,663] {taskinstance.py:1440} INFO - Marking task as FAILED. dag_id=low_income_hospitals, task_id=Create_Tables_in_Redshift, execution_date=20210120T022451, start_date=20210120T022454, end_date=20210120T022455
+[2021-01-19 21:24:55,683] {local_task_job.py:118} INFO - Task exited with return code 1

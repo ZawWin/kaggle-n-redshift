@@ -1,0 +1,48 @@
+[2021-01-19 00:07:19,754] {taskinstance.py:826} INFO - Dependencies all met for <TaskInstance: low_income_hospitals.Load_hopsital_ratings 2021-01-19T05:07:03.685633+00:00 [queued]>
+[2021-01-19 00:07:19,757] {taskinstance.py:826} INFO - Dependencies all met for <TaskInstance: low_income_hospitals.Load_hopsital_ratings 2021-01-19T05:07:03.685633+00:00 [queued]>
+[2021-01-19 00:07:19,757] {taskinstance.py:1017} INFO - 
+--------------------------------------------------------------------------------
+[2021-01-19 00:07:19,758] {taskinstance.py:1018} INFO - Starting attempt 1 of 1
+[2021-01-19 00:07:19,758] {taskinstance.py:1019} INFO - 
+--------------------------------------------------------------------------------
+[2021-01-19 00:07:19,762] {taskinstance.py:1038} INFO - Executing <Task(S3ToRedshiftOperator): Load_hopsital_ratings> on 2021-01-19T05:07:03.685633+00:00
+[2021-01-19 00:07:19,764] {standard_task_runner.py:51} INFO - Started process 31044 to run task
+[2021-01-19 00:07:19,770] {standard_task_runner.py:75} INFO - Running: ['airflow', 'tasks', 'run', 'low_income_hospitals', 'Load_hopsital_ratings', '2021-01-19T05:07:03.685633+00:00', '--job-id', '5', '--pool', 'default_pool', '--raw', '--subdir', 'DAGS_FOLDER/low_income_hospitals.py', '--cfg-path', '/var/folders/yg/z5092h4j73z95n7zhxq2kwx1szwm14/T/tmp9anmib2e']
+[2021-01-19 00:07:19,771] {standard_task_runner.py:76} INFO - Job 5: Subtask Load_hopsital_ratings
+[2021-01-19 00:07:19,794] {logging_mixin.py:103} INFO - Running <TaskInstance: low_income_hospitals.Load_hopsital_ratings 2021-01-19T05:07:03.685633+00:00 [running]> on host SHS-L5244.ssp.pri
+[2021-01-19 00:07:19,811] {taskinstance.py:1232} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_EMAIL=zawnaingwynn@gmail.com
+AIRFLOW_CTX_DAG_OWNER=Harry
+AIRFLOW_CTX_DAG_ID=low_income_hospitals
+AIRFLOW_CTX_TASK_ID=Load_hopsital_ratings
+AIRFLOW_CTX_EXECUTION_DATE=2021-01-19T05:07:03.685633+00:00
+AIRFLOW_CTX_DAG_RUN_ID=manual__2021-01-19T05:07:03.685633+00:00
+[2021-01-19 00:07:19,812] {base_aws.py:362} INFO - Airflow Connection: aws_conn_id=aws_credentials
+[2021-01-19 00:07:19,815] {base_aws.py:160} INFO - Credentials retrieved from login
+[2021-01-19 00:07:19,816] {base_aws.py:81} INFO - Creating session with aws_access_key_id=AKIAWZAE47KQ6CE735YP region_name=None
+[2021-01-19 00:07:19,825] {base_aws.py:151} INFO - role_arn is None
+[2021-01-19 00:07:19,825] {s3_to_redshift.py:120} INFO - Executing COPY command...
+[2021-01-19 00:07:19,828] {base.py:74} INFO - Using connection to: id: redshift. Host: zipcoderedshift.cvh0gkrokjip.us-west-2.redshift.amazonaws.com, Port: 5439, Schema: zipcode, Login: harry, Password: XXXXXXXX, extra: None
+[2021-01-19 00:07:20,484] {dbapi.py:180} INFO - Running statement: 
+            COPY PUBLIC.hospital_ratings
+            FROM 's3://lowincome-hospitals-data/hospital_ratings.csv'
+            with credentials
+            'aws_access_key_id=AKIAWZAE47KQ6CE735YP;aws_secret_access_key=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'
+            ;
+        , parameters: None
+[2021-01-19 00:07:25,492] {taskinstance.py:1396} ERROR - Load into table 'hospital_ratings' failed.  Check 'stl_load_errors' system table for details.
+Traceback (most recent call last):
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1086, in _run_raw_task
+    self._prepare_and_execute_task_with_callbacks(context, task)
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1260, in _prepare_and_execute_task_with_callbacks
+    result = self._execute_task(context, task_copy)
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1300, in _execute_task
+    result = task_copy.execute(context=context)
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/providers/amazon/aws/transfers/s3_to_redshift.py", line 121, in execute
+    postgres_hook.run(sql, self.autocommit)
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/hooks/dbapi.py", line 184, in run
+    cur.execute(sql_statement)
+psycopg2.errors.InternalError_: Load into table 'hospital_ratings' failed.  Check 'stl_load_errors' system table for details.
+
+[2021-01-19 00:07:25,495] {taskinstance.py:1440} INFO - Marking task as FAILED. dag_id=low_income_hospitals, task_id=Load_hopsital_ratings, execution_date=20210119T050703, start_date=20210119T050719, end_date=20210119T050725
+[2021-01-19 00:07:25,543] {local_task_job.py:118} INFO - Task exited with return code 1

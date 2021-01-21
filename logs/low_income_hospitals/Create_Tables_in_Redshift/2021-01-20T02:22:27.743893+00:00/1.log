@@ -1,0 +1,91 @@
+[2021-01-19 21:22:30,770] {taskinstance.py:826} INFO - Dependencies all met for <TaskInstance: low_income_hospitals.Create_Tables_in_Redshift 2021-01-20T02:22:27.743893+00:00 [queued]>
+[2021-01-19 21:22:30,774] {taskinstance.py:826} INFO - Dependencies all met for <TaskInstance: low_income_hospitals.Create_Tables_in_Redshift 2021-01-20T02:22:27.743893+00:00 [queued]>
+[2021-01-19 21:22:30,774] {taskinstance.py:1017} INFO - 
+--------------------------------------------------------------------------------
+[2021-01-19 21:22:30,774] {taskinstance.py:1018} INFO - Starting attempt 1 of 1
+[2021-01-19 21:22:30,775] {taskinstance.py:1019} INFO - 
+--------------------------------------------------------------------------------
+[2021-01-19 21:22:30,779] {taskinstance.py:1038} INFO - Executing <Task(PostgresOperator): Create_Tables_in_Redshift> on 2021-01-20T02:22:27.743893+00:00
+[2021-01-19 21:22:30,781] {standard_task_runner.py:51} INFO - Started process 91996 to run task
+[2021-01-19 21:22:30,787] {standard_task_runner.py:75} INFO - Running: ['airflow', 'tasks', 'run', 'low_income_hospitals', 'Create_Tables_in_Redshift', '2021-01-20T02:22:27.743893+00:00', '--job-id', '4', '--pool', 'default_pool', '--raw', '--subdir', 'DAGS_FOLDER/low_income_hospitals.py', '--cfg-path', '/var/folders/yg/z5092h4j73z95n7zhxq2kwx1szwm14/T/tmpvoh3q6ti']
+[2021-01-19 21:22:30,788] {standard_task_runner.py:76} INFO - Job 4: Subtask Create_Tables_in_Redshift
+[2021-01-19 21:22:30,812] {logging_mixin.py:103} INFO - Running <TaskInstance: low_income_hospitals.Create_Tables_in_Redshift 2021-01-20T02:22:27.743893+00:00 [running]> on host shs-l5332.ssp.pri
+[2021-01-19 21:22:30,830] {taskinstance.py:1232} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_EMAIL=zawnaingwynn@gmail.com
+AIRFLOW_CTX_DAG_OWNER=Harry
+AIRFLOW_CTX_DAG_ID=low_income_hospitals
+AIRFLOW_CTX_TASK_ID=Create_Tables_in_Redshift
+AIRFLOW_CTX_EXECUTION_DATE=2021-01-20T02:22:27.743893+00:00
+AIRFLOW_CTX_DAG_RUN_ID=manual__2021-01-20T02:22:27.743893+00:00
+[2021-01-19 21:22:30,831] {postgres.py:69} INFO - Executing: CREATE TABLE IF NOT EXISTS public.hospital_locations(
+provider_id varchar(32) PRIMARY KEY,
+hospital_name text NOT NULL,
+address text NOT NULL,
+city varchar(64) NOT NULL,
+state varchar(32) NOT NULL,
+zip_code varchar(32) NOT NULL,
+county_name varchar(32),
+phone_number numeric,
+hospital_type varchar(128),
+hospital_ownership varchar(256),
+emergency_services boolean,
+meets_criteria_for_meaningful_use_of_EHRs boolean
+);
+
+
+CREATE TABLE IF NOT EXISTS public.hospital_ratings(
+provider_id varchar(32) PRIMARY KEY,
+hospital_overall_rating varchar(32),
+hospital_overall_rating_footnote text,
+mortality_national_comparison text,
+mortality_national_comparison_footnote text,
+safety_of_care_national_comparison text,
+safety_of_care_national_comparison_footnote text,
+readmission_national_comparison text,
+readmission_national_comparison_footnote text,
+patient_experience_national_comparison text,
+patient_experience_national_comparison_footnote text,
+effectiveness_of_care_national_comparison text,
+effectiveness_of_care_national_comparison_footnote text,
+timeliness_of_care_national_comparison text,
+timeliness_of_care_national_comparison_footnote text,
+efficient_use_of_medical_imaging_national_comparison text,
+efficient_use_of_medical_imaging_national_comparison_footnote text
+);
+
+
+CREATE TABLE IF NOT EXISTS public.low_income_area(
+zip_code varchar(32) PRIMARY KEY,
+city varchar(32) Not Null,
+state varchar(32) NOT NULL,
+county varchar(32) NOT NULL,
+zip_code_designation varchar(32) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS public.income_per_zip(
+zip_code varchar(32) PRIMARY KEY,
+total_population numeric NOT NULL,
+total_income numeric NOT NULL,
+avg_income numeric NOT NULL
+);
+[2021-01-19 21:22:30,836] {taskinstance.py:1396} ERROR - The conn_id `redshift` isn't defined
+Traceback (most recent call last):
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1086, in _run_raw_task
+    self._prepare_and_execute_task_with_callbacks(context, task)
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1260, in _prepare_and_execute_task_with_callbacks
+    result = self._execute_task(context, task_copy)
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1300, in _execute_task
+    result = task_copy.execute(context=context)
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/providers/postgres/operators/postgres.py", line 71, in execute
+    self.hook.run(self.sql, self.autocommit, parameters=self.parameters)
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/hooks/dbapi.py", line 173, in run
+    with closing(self.get_conn()) as conn:
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/providers/postgres/hooks/postgres.py", line 83, in get_conn
+    conn = self.connection or self.get_connection(conn_id)
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/hooks/base.py", line 63, in get_connection
+    conn = Connection.get_connection_from_secrets(conn_id)
+  File "/Users/zwin/opt/anaconda3/envs/airflow/lib/python3.7/site-packages/airflow/models/connection.py", line 354, in get_connection_from_secrets
+    raise AirflowNotFoundException(f"The conn_id `{conn_id}` isn't defined")
+airflow.exceptions.AirflowNotFoundException: The conn_id `redshift` isn't defined
+[2021-01-19 21:22:30,844] {taskinstance.py:1440} INFO - Marking task as FAILED. dag_id=low_income_hospitals, task_id=Create_Tables_in_Redshift, execution_date=20210120T022227, start_date=20210120T022230, end_date=20210120T022230
+[2021-01-19 21:22:30,880] {local_task_job.py:118} INFO - Task exited with return code 1
