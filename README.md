@@ -14,13 +14,14 @@ You will need to install:
 * Additional python libraries - kaggle
 * Apache-airflow 2.0
 
-## Installation ##
-1. First download anaconda distribution from URL above and install it to your computer. No fancy command line required for this step. The great thing about using this installation method is, the installation includes most commonly used python libraries pandas, numpy, scipy and so forth. 
-  * In addition, you will also have Jupyter notebook and spyder IDE, to start coding in python straight away. Minimal additional setup required.
+## Installation and Setup ##
+1. First download anaconda distribution from URL above and install it to your computer. No fancy command line required for this step. The great thing about using this installation method is, the installation includes most commonly used python libraries pandas, numpy, scipy and so forth. Minimal additional setup required.
+
 2. Install kaggle package by following the steps given on Kaggle website: https://www.kaggle.com/docs/api 
-  * This step is required to use Kaggle API to download their dataset via python.
+   * This step is required to use Kaggle API to download their dataset via python.
+   
 3. Install apache-airflow-2.0 by following the steps below.
-  * First, open the terminal and type in the command.
+   * First, open the terminal and type in the command.
   ```
     > conda create -n "airflow" python=3.7
     > conda activate airflow
@@ -64,13 +65,27 @@ You will need to install:
    ```
    * After the user is created, you can then go back to Airflow UI and log in with the newly created user.
    
-## How to run the dag with Airflow ##
+## Running the job with Airflow ##
    * Download the current repository into ~/Desktop/airflow folder you created. That is your airflow home directory. When you go back to Airflow UI, you will see an error message. That's okay. Because you haven't created your redshift connection and s3_bucket in airflow yet.
    * Create your 's3_bucket' under variables in Airflow UI. Name exactly 's3_bucket' for variable name. The code will look for that name.
    * Under connections in Airflow UI, create the two following connections:
         * Amazon Web Services connection. Make sure the name is 'aws_credentials'.
         * Postgres connection. Make sure the name is 'redshift'.
-    * If everything runs as expected, you should see error message clear up and see something like this when you click on the dag.
+   * If everything runs as expected, you should see error message clear up and see your dag in Dag list.
     
     
-     
+## Workflow ##
+### Conceptual Diagram ###
+
+
+### Actual Data Flow Diagram ###
+
+
+## Use Cases ##
+
+What questions can be answered using this dataset? 
+
+- Number of hospitals in low income zip area?
+- Total Number of population and Average Income in low income zip code?
+- Hospital locations and contact information along with their ratings?
+- Correlation between number of hospitals and total number of population in each zip code and determine underserved areas.     
