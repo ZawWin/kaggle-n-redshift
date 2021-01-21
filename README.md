@@ -13,6 +13,7 @@ You will need to install:
 * Python 3.6 and above. You can install it via anaconda distribution here at: https://www.anaconda.com/products/individual
 * Additional python libraries - kaggle
 * Apache-airflow 2.0
+* Create s3 bucket and redshift data warehouse in AWS. Make sure both of them are in the same region. (This step is out of scope for this project.)
 
 ## Installation and Setup ##
 1. First download anaconda distribution from URL above and install it to your computer. No fancy command line required for this step. The great thing about using this installation method is, the installation includes most commonly used python libraries pandas, numpy, scipy and so forth. Minimal additional setup required.
