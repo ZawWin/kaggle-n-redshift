@@ -1,0 +1,134 @@
+[2021-01-21 13:24:45,576] {taskinstance.py:826} INFO - Dependencies all met for <TaskInstance: low_income_hospitals.Create_Tables_in_Redshift 2021-01-21T18:23:54.682140+00:00 [queued]>
+[2021-01-21 13:24:45,581] {taskinstance.py:826} INFO - Dependencies all met for <TaskInstance: low_income_hospitals.Create_Tables_in_Redshift 2021-01-21T18:23:54.682140+00:00 [queued]>
+[2021-01-21 13:24:45,581] {taskinstance.py:1017} INFO - 
+--------------------------------------------------------------------------------
+[2021-01-21 13:24:45,582] {taskinstance.py:1018} INFO - Starting attempt 1 of 1
+[2021-01-21 13:24:45,582] {taskinstance.py:1019} INFO - 
+--------------------------------------------------------------------------------
+[2021-01-21 13:24:45,586] {taskinstance.py:1038} INFO - Executing <Task(PostgresOperator): Create_Tables_in_Redshift> on 2021-01-21T18:23:54.682140+00:00
+[2021-01-21 13:24:45,588] {standard_task_runner.py:51} INFO - Started process 22329 to run task
+[2021-01-21 13:24:45,595] {standard_task_runner.py:75} INFO - Running: ['airflow', 'tasks', 'run', 'low_income_hospitals', 'Create_Tables_in_Redshift', '2021-01-21T18:23:54.682140+00:00', '--job-id', '67', '--pool', 'default_pool', '--raw', '--subdir', 'DAGS_FOLDER/low_income_hospitals.py', '--cfg-path', '/var/folders/yg/z5092h4j73z95n7zhxq2kwx1szwm14/T/tmptr0hepx4']
+[2021-01-21 13:24:45,596] {standard_task_runner.py:76} INFO - Job 67: Subtask Create_Tables_in_Redshift
+[2021-01-21 13:24:45,620] {logging_mixin.py:103} INFO - Running <TaskInstance: low_income_hospitals.Create_Tables_in_Redshift 2021-01-21T18:23:54.682140+00:00 [running]> on host SHS-L5211.ssp.pri
+[2021-01-21 13:24:45,638] {taskinstance.py:1232} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_EMAIL=zawnaingwynn@gmail.com
+AIRFLOW_CTX_DAG_OWNER=Harry
+AIRFLOW_CTX_DAG_ID=low_income_hospitals
+AIRFLOW_CTX_TASK_ID=Create_Tables_in_Redshift
+AIRFLOW_CTX_EXECUTION_DATE=2021-01-21T18:23:54.682140+00:00
+AIRFLOW_CTX_DAG_RUN_ID=manual__2021-01-21T18:23:54.682140+00:00
+[2021-01-21 13:24:45,639] {postgres.py:69} INFO - Executing: CREATE TABLE IF NOT EXISTS public.hospital_locations(
+provider_id varchar(32) PRIMARY KEY,
+hospital_name text NOT NULL,
+address text NOT NULL,
+city varchar(64) NOT NULL,
+state varchar(32) NOT NULL,
+zip_code varchar(32) NOT NULL,
+county_name varchar(32),
+phone_number numeric,
+hospital_type varchar(128),
+hospital_ownership varchar(256),
+emergency_services boolean,
+meets_criteria_for_meaningful_use_of_EHRs boolean
+);
+
+
+CREATE TABLE IF NOT EXISTS public.hospital_ratings(
+provider_id varchar(32) PRIMARY KEY,
+hospital_overall_rating varchar(32),
+hospital_overall_rating_footnote text,
+mortality_national_comparison text,
+mortality_national_comparison_footnote text,
+safety_of_care_national_comparison text,
+safety_of_care_national_comparison_footnote text,
+readmission_national_comparison text,
+readmission_national_comparison_footnote text,
+patient_experience_national_comparison text,
+patient_experience_national_comparison_footnote text,
+effectiveness_of_care_national_comparison text,
+effectiveness_of_care_national_comparison_footnote text,
+timeliness_of_care_national_comparison text,
+timeliness_of_care_national_comparison_footnote text,
+efficient_use_of_medical_imaging_national_comparison text,
+efficient_use_of_medical_imaging_national_comparison_footnote text
+);
+
+
+CREATE TABLE IF NOT EXISTS public.low_income_area(
+zip_code varchar(32) PRIMARY KEY,
+city varchar(32) Not Null,
+state varchar(32) NOT NULL,
+county varchar(32) NOT NULL,
+zip_code_designation varchar(32) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS public.income_per_zip(
+zip_code varchar(32) PRIMARY KEY,
+total_population numeric NOT NULL,
+total_income numeric NOT NULL,
+avg_income numeric NOT NULL
+);
+[2021-01-21 13:24:45,643] {base.py:74} INFO - Using connection to: id: redshift. Host: zipcoderedshift.cvh0gkrokjip.us-west-2.redshift.amazonaws.com, Port: 5439, Schema: zipcode, Login: harry, Password: XXXXXXXX, extra: None
+[2021-01-21 13:24:46,325] {dbapi.py:180} INFO - Running statement: CREATE TABLE IF NOT EXISTS public.hospital_locations(
+provider_id varchar(32) PRIMARY KEY,
+hospital_name text NOT NULL,
+address text NOT NULL,
+city varchar(64) NOT NULL,
+state varchar(32) NOT NULL,
+zip_code varchar(32) NOT NULL,
+county_name varchar(32),
+phone_number numeric,
+hospital_type varchar(128),
+hospital_ownership varchar(256),
+emergency_services boolean,
+meets_criteria_for_meaningful_use_of_EHRs boolean
+);
+
+
+CREATE TABLE IF NOT EXISTS public.hospital_ratings(
+provider_id varchar(32) PRIMARY KEY,
+hospital_overall_rating varchar(32),
+hospital_overall_rating_footnote text,
+mortality_national_comparison text,
+mortality_national_comparison_footnote text,
+safety_of_care_national_comparison text,
+safety_of_care_national_comparison_footnote text,
+readmission_national_comparison text,
+readmission_national_comparison_footnote text,
+patient_experience_national_comparison text,
+patient_experience_national_comparison_footnote text,
+effectiveness_of_care_national_comparison text,
+effectiveness_of_care_national_comparison_footnote text,
+timeliness_of_care_national_comparison text,
+timeliness_of_care_national_comparison_footnote text,
+efficient_use_of_medical_imaging_national_comparison text,
+efficient_use_of_medical_imaging_national_comparison_footnote text
+);
+
+
+CREATE TABLE IF NOT EXISTS public.low_income_area(
+zip_code varchar(32) PRIMARY KEY,
+city varchar(32) Not Null,
+state varchar(32) NOT NULL,
+county varchar(32) NOT NULL,
+zip_code_designation varchar(32) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS public.income_per_zip(
+zip_code varchar(32) PRIMARY KEY,
+total_population numeric NOT NULL,
+total_income numeric NOT NULL,
+avg_income numeric NOT NULL
+);, parameters: None
+[2021-01-21 13:24:46,508] {dbapi.py:186} INFO - Rows affected: -1
+[2021-01-21 13:24:46,700] {postgres.py:73} INFO - INFO:  Relation "hospital_locations" already exists and will be skipped
+
+[2021-01-21 13:24:46,700] {postgres.py:73} INFO - INFO:  Relation "hospital_ratings" already exists and will be skipped
+
+[2021-01-21 13:24:46,700] {postgres.py:73} INFO - INFO:  Relation "low_income_area" already exists and will be skipped
+
+[2021-01-21 13:24:46,701] {postgres.py:73} INFO - INFO:  Relation "income_per_zip" already exists and will be skipped
+
+[2021-01-21 13:24:46,704] {taskinstance.py:1142} INFO - Marking task as SUCCESS. dag_id=low_income_hospitals, task_id=Create_Tables_in_Redshift, execution_date=20210121T182354, start_date=20210121T182445, end_date=20210121T182446
+[2021-01-21 13:24:46,717] {taskinstance.py:1195} INFO - 4 downstream tasks scheduled from follow-on schedule check
+[2021-01-21 13:24:46,754] {local_task_job.py:118} INFO - Task exited with return code 0

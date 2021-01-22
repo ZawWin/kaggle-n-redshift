@@ -10,5 +10,6 @@ import operators
 class CustomPlugin(AirflowPlugin):
     name = "custom_plugin"
     operators = [
-        operators.DownloadFromKaggleOperator
+        operators.DownloadFromKaggleOperator,
+        operators.DataQualityOperator
         ]

@@ -19,13 +19,13 @@ sys.path.append('/Users/zwin/airflow_home/logs')
 from datetime import datetime
 from airflow import DAG
 from operators import DownloadFromKaggleOperator
+from operators import DataQualityOperator
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import PythonOperator
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.hooks.S3_hook import S3Hook
 from airflow.models import Variable
 from airflow.providers.amazon.aws.transfers.s3_to_redshift import S3ToRedshiftOperator
-from airflow.contrib.hooks.redshift_hook import RedshiftHook
 import pandas as pd
 import logging
 
@@ -243,14 +243,32 @@ load_avg_income = S3ToRedshiftOperator(
     truncate_table=True
     )
 
+check_low_income_count = DataQualityOperator(
+    task_id = 'Data_Quality_Check_for_Low_Income_table',
+    dag = dag,
+    redshift_conn_id = 'redshift',
+    test_query = 'Select count(*) from public.low_income_area;',
+    expected_result = 22242
+    )
+
+check_zip_income_count = DataQualityOperator(
+    task_id = 'Data_Quality_Check_for_Income_per_Zip_table',
+    dag = dag,
+    redshift_conn_id = 'redshift',
+    test_query = 'Select count(*) from public.income_per_zip;',
+    expected_result = 27658
+    )
+
 
 end_operator = DummyOperator(task_id = 'End_execution', dag = dag)
 
 
+# start_operator >> check_low_income_count>> end_operator
+
 start_operator>>download_hospinfo>>process_hospital_data>>s3upload_hospital_data>>create_tables>>load_hospital_locations>>end_operator
 start_operator>>download_hospinfo>>process_hospital_data>>s3upload_hospital_rating_data>>create_tables>>load_hospital_ratings>>end_operator
-start_operator>>download_low_income_zip>>process_low_income_data>>s3upload_low_income_data>>create_tables>>load_low_income>>end_operator
-start_operator>>download_average_income>>process_avg_income_data>>s3upload_avg_income_zip_data>>create_tables>>load_avg_income>>end_operator
+start_operator>>download_low_income_zip>>process_low_income_data>>s3upload_low_income_data>>create_tables>>load_low_income>>check_low_income_count>>end_operator
+start_operator>>download_average_income>>process_avg_income_data>>s3upload_avg_income_zip_data>>create_tables>>load_avg_income>>check_zip_income_count>>end_operator
 
 #start_operator>>create_tables>>load_hospital_locations>>end_operator
 #start_operator>>create_tables>>load_hospital_ratings>>end_operator
