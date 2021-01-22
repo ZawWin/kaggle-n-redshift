@@ -8,7 +8,7 @@ The goal of this capstone project is to enrich US Zipcode data with hospitals lo
 
 ![Image](https://github.com/ZawWin/kaggle-n-redshift/blob/main/images/Zip%20Code%20ERD.jpg)
 
-**Data Dictionary** of this data model - 
+**Data Dictionary** of this data model - https://github.com/ZawWin/kaggle-n-redshift/blob/main/data_dictionary.xlsx
 
 ## Answering the Why? ##
 
