@@ -8,6 +8,18 @@ The goal of this capstone project is to enrich US Zipcode data with hospitals lo
 
 ![Image](https://github.com/ZawWin/kaggle-n-redshift/blob/main/images/Zip%20Code%20ERD.jpg)
 
+**Data Dictionary** of this data model - 
+
+## Answering the Why? ##
+
+* Why this data model? 
+   * The main reason I chose the zip code data for this data model is because of its well-defined nature with minimal clean up required. Even though this dataset mainly composed of dimensional data at the current stage, one can easily include the fact table of his choice and easily build a star schema on top of this using zip code column as a key to tie off among entities.
+
+* What technologies are being used and why?
+    * For this project, I am using python 3.7 with apache_airflow as my workflow management tool. Also, s3 and redshift as a way to stage and store the data for the end users to access. The entire technology stack is built within a virtual environment (using conda command) so that we are in control of our environment and only using the most stable version of each technology, not necessarily the latest development version.
+    * It is obvious why I would choose python for this project (user-friendly, intuitive, many available libraries, most-in-demand skills among data professionals ..I could go on and on). For my workflow management tools, I choose to go with Apache-airflow because it provides such a user friendly web interface to manage your workflow. Not only that, but it also has a strong open source community out there, who are continuously improving and contributing a ton to make the tools easier to use for everyone. 
+    
+
 ## Requirements ##
 You will need to install:
 * Python 3.6 and above. You can install it via anaconda distribution here at: https://www.anaconda.com/products/individual
