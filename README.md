@@ -92,4 +92,12 @@ What questions can be answered using this dataset?
 - Number of hospitals in low income zip area?
 - Total Number of population and Average Income in low income zip code?
 - Hospital locations and contact information along with their ratings?
-- Correlation between number of hospitals and total number of population in each zip code and determine underserved areas.     
+- Correlation between number of hospitals and total number of population in each zip code and determine underserved areas.  
+
+## Answering Capstone Specific Questions ##
+
+- If the data is increased by 100x, we could use big data technology such as Apache Spark to process our data in a more cooridnated, paralleized cluster environment. In such environment, we will also have the option of choosing our desired compute capacity and processing power to match our workload.
+
+- Scheduling the job to run at 7 am daily would be as simple as changing schedule interval in dag parameters to: 0 7 * * *
+
+- If the database need to be accessed by 100+ people, production level data warehouse like redshift should be able to handle the workload. If needed, we can scale up or scale out additional servers to accomondate the workload. The main challenge with the increase in number of people getting access to data would be managing the security around those people, properly ensuring that each of them is applied to the principle of least privilege. This is espcially important if your dataset contains PHI information.
